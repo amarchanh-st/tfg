@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Rust-Away API
+  description: Api to manage the data from Rust-Away Site
+  contact:
+    email: antonio.marchante.hernan@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1/rust-away
+    description: Url to access the API
+tags:
+  - name: users
+    description: Endpoints which manage users
+
+paths:
+  /user/sign-up:
+    post:
+      tags:
+        - users
+      summary: Add user
+      description: Add a new user to the system
+      operationId: signUp
+      requestBody:
+        description: User to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      responses:
+        '200':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+  /user/log-in:
+    post:
+      tags:
+        - users
+      summary: Log in
+      description: Log in to the application
+      operationId: logIn
+      requestBody:
+        description: User data to log in
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    UserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        password:
+          type: string
+    UserResponse:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        password:
+          type: string
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
