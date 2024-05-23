@@ -1,12 +1,14 @@
 package com.amarchanh.rustaway.controller;
 
 
+import ch.qos.logback.core.subst.Token;
 import com.amarchanh.rustaway.api.UserApi;
 import com.amarchanh.rustaway.controller.mapper.TokenMapper;
 import com.amarchanh.rustaway.controller.mapper.UserMapper;
 import com.amarchanh.rustaway.model.LoginRequest;
 import com.amarchanh.rustaway.model.TokenResponse;
 import com.amarchanh.rustaway.model.UserRequest;
+import com.amarchanh.rustaway.service.AuthenticationService;
 import com.amarchanh.rustaway.service.UserService;
 import com.amarchanh.rustaway.service.model.Jwt;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController implements UserApi {
 
-    private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     private final UserMapper userMapper;
 
@@ -47,7 +49,7 @@ public class UserController implements UserApi {
     public ResponseEntity<TokenResponse> signUp(UserRequest userRequest) {
         try {
             log.info("Signin request for user {}", userRequest);
-            Jwt jwt = userService.signup(userMapper.toModel(userRequest));
+            Jwt jwt = authenticationService.singup(userMapper.toModel(userRequest));
             return ResponseEntity.ok(tokenMapper.toResponse(jwt));
         }
         catch (Exception e) {
