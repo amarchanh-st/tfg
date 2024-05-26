@@ -1,0 +1,32 @@
+<div class="card w-50 ">
+    <div class="card-header">
+        <h5 class="card-title d-flex justify-content-center">Iniciar sesión</h5>
+    </div>
+
+    <div class="card-body d-flex justify-content-center">
+        <form (ngSubmit)="onSubmit()">
+            <input 
+            name="username" 
+            class="form-control my-2  "
+            placeholder="Username" 
+            [(ngModel)]="login.username">
+
+            <input 
+            name="password" 
+            class="form-control my-2 " 
+            type="password" 
+            placeholder="Password"
+            [(ngModel)]="login.password">
+
+            <button 
+            class="btn btn-primary " 
+            type="submit">
+                Login
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="col d-flex justify-content-center">
+    No tienes cuenta? &nbsp; <a [routerLink]="['/signup']">Crea una</a>
+</div>
