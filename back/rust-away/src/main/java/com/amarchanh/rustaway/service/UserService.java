@@ -8,5 +8,5 @@ import com.amarchanh.rustaway.service.model.User;
 public interface UserService {
 
 
-    UserEntity save(User user);
+    UserEntity save(User user) throws Exception;
 }

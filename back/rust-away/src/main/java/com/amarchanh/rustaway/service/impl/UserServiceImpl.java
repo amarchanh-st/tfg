@@ -26,7 +26,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity save(User entity) {
+    public UserEntity save(User entity) throws Exception {
+        final var user = userRepository.findAllByUsername(entity.getUsername());
+        if(user.isPresent()) {
+            // TODO: Change exception
+            throw new Exception("User already stores");
+        }
         return userRepository.save(userEntityMapper.toEntity(entity));
     }
 

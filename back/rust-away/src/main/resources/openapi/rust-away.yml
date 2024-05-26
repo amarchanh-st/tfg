@@ -6,7 +6,7 @@ info:
     email: antonio.marchante.hernan@gmail.com
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/v1/rust-away
+  - url: http://localhost:8080/v1/rust-away/api
     description: Url to access the API
 tags:
   - name: users
