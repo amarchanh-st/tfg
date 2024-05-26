@@ -29,6 +29,10 @@ jobs:
         cache: maven
     - name: Change to Backend Project Directory
       run: cd ./back/rust-away/
+    - name: PWD
+      run: pwd
+    - name: LS
+      run: ls
     - name: Build with Maven
       run: mvn clean compile
 
