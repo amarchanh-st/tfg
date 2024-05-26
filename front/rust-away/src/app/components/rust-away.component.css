@@ -1,0 +1,4 @@
+.card, .card-body, .btn-primary {
+    margin: 0 auto; /* Added */
+    float: none;
+}
