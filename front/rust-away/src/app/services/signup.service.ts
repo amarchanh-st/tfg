@@ -7,7 +7,7 @@ import { User } from '../models/user';
 })
 export class SignupService {
 
-  private url: string = 'http://localhost:8080/api/user/sign-up';
+  private url: string = 'http://localhost:8080/user/sign-up';
 
   constructor(private http: HttpClient) { }
 
