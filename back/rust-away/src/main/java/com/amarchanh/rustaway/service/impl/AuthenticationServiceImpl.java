@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -28,12 +30,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public Jwt singup(User request) throws Exception {
+        // TODO: Sacar a mapper
         var user = User
                 .builder()
                 .name(request.getName())
                 .username(request.getUsername())
+                .surname(request.getSurname())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("ROLE_CLIENT")
+                .creationDate(LocalDateTime.now())
                 .build();
 
         final var storedUser = userService.save(user);

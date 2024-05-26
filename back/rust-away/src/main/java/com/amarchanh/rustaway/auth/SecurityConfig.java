@@ -47,11 +47,8 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorization -> authorization
-                        .requestMatchers(HttpMethod.POST, "/login", "/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cars/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/cars/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/cars/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/cars/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/log-in", "/user/sign-up").permitAll()
+                        .requestMatchers("/v3/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs", "openapi.yaml").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -3,7 +3,7 @@
     <!--Added the entity Car-->
     <changeSet id="20170503041524-1" author="amarchanh">
         <createTable tableName="users">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="username" type="varchar(30)">
