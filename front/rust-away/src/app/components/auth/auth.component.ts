@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { Login } from '../../models/login';
 import { RouterModule } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { SharingDataService } from '../../services/sharing-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +18,6 @@ export class AuthComponent {
   login: Login;
 
   constructor(
-    private service: LoginService,
     private sharingData: SharingDataService) {
     this.login = new Login();
   }
