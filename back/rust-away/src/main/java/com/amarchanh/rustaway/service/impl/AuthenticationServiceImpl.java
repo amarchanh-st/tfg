@@ -37,6 +37,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .username(request.getUsername())
                 .surname(request.getSurname())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .birthDate(request.getBirthDate())
+                .address(request.getAddress())
                 .role("ROLE_CLIENT")
                 .creationDate(LocalDateTime.now())
                 .build();
@@ -50,6 +52,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public TokenResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+
+        // TODO: Cambiar por service
         var user = userRepository.findAllByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var jwt = jwtService.generateToken(user);

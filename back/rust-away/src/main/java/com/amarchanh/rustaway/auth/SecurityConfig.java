@@ -48,6 +48,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorization -> authorization
                         .requestMatchers(HttpMethod.POST, "/user/log-in", "/user/sign-up").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/**").hasAnyRole("CLIENT", "MECHANIC")
+                        .requestMatchers(HttpMethod.PUT, "/user/**").hasAnyRole("CLIENT", "MECHANIC")
                         .requestMatchers("/v3/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs", "openapi.yaml").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserEdit {
 
     private Long id;
 
@@ -22,7 +22,9 @@ public class User {
 
     private String surname;
 
-    private String password;
+    private String oldPassword;
+
+    private String newPassword;
 
     private String role;
 

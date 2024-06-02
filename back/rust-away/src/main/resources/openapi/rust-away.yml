@@ -11,6 +11,8 @@ servers:
 tags:
   - name: users
     description: Endpoints which manage users
+  - name: budget
+    description: Endpoints which manage budgets
 
 paths:
   /user/sign-up:
@@ -34,6 +36,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /user/{username}:
+    get:
+      tags:
+        - users
+      summary: Get user by username
+      description: Get user from the system
+      operationId: getUser
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /user/edit/{username}:
+    put:
+      tags:
+        - users
+      summary: Edit user
+      description: Edit user from the system
+      operationId: editUser
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: User to edit
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEditRequest'
+        required: true
+      responses:
+        '200':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
         '400':
           description: Bad request
         default:
@@ -70,6 +133,119 @@ paths:
         '500':
           description: Internal error
 
+  /budget/find-all:
+    get:
+      parameters:
+        - in: query
+          name: status
+          description: status of the budgets to return
+          schema:
+            type: string
+            enum: [UNTOUCHED, REVIEWED, IN_PROGRESS, FINISHED ]
+          required: false
+        - in: query
+          name: limit
+          description: maximum number of budgets to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+        - in: query
+          name: skip
+          description: number of budgets to skip for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: order
+          description: order of the returned list by date
+          required: false
+          schema:
+            type: string
+      tags:
+        - budget
+      summary: Find all budgets with criteria
+      description: Find all budgets with criteria
+      operationId: findAllBudgets
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+  /budget/new:
+    post:
+      tags:
+        - budget
+      summary: Add new budget
+      description: Add a new budget to the system
+      operationId: addBudget
+      requestBody:
+        description: User to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+        required: true
+      responses:
+        '200':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+  /budget/edit:
+    put:
+      tags:
+        - budget
+      operationId: updateBudget
+      description: Update a existing budget
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: User to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+        required: true
+      responses:
+        '200':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
 components:
   schemas:
     LoginRequest:
@@ -90,6 +266,29 @@ components:
           type: string
         password:
           type: string
+        address:
+          type: string
+        birthDate:
+          type: string
+          format: date
+    UserEditRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+        address:
+          type: string
+        birthDate:
+          type: string
+          format: date
     UserResponse:
       type: object
       properties:
@@ -99,10 +298,57 @@ components:
           type: string
         surname:
           type: string
-        password:
+        address:
           type: string
+        birthDate:
+          type: string
+          format: date
     TokenResponse:
       type: object
       properties:
         token:
           type: string
+    BudgetResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        brand:
+          type: string
+        model:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        price:
+          type: number
+        comments:
+          type: array
+          items:
+            type: string
+        images:
+          type: array
+          items:
+            type: string
+            format: binary
+    BudgetRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        brand:
+          type: string
+        model:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+            format: binary
