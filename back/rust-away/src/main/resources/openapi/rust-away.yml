@@ -13,6 +13,12 @@ tags:
     description: Endpoints which manage users
   - name: budget
     description: Endpoints which manage budgets
+  - name: status
+    description: Endpoints which manage status
+  - name: chats
+    description: Endpoints which manage chats
+  - name: images
+    description: Endpoints which manage images
 
 paths:
   /user/sign-up:
@@ -103,6 +109,7 @@ paths:
           description: Unexpected error
         '500':
           description: Internal error
+
   /user/log-in:
     post:
       tags:
@@ -186,6 +193,36 @@ paths:
           description: Unexpected error
         '500':
           description: Internal error
+
+  /budget/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      tags:
+        - budget
+      summary: Find a budget by Id
+      description: Find a budget by Id
+      operationId: findById
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
   /budget/new:
     post:
       tags:
@@ -213,28 +250,29 @@ paths:
           description: Unexpected error
         '500':
           description: Internal error
-  /budget/edit:
+
+  /budget/addPrice/{budget-id}:
     put:
       tags:
         - budget
-      operationId: updateBudget
-      description: Update a existing budget
+      operationId: updatePriceBudget
+      description: Update a existing budget with new price
       parameters:
-        - in: query
-          name: id
+        - in: path
+          name: budget-id
           required: true
           schema:
             type: integer
       requestBody:
-        description: User to add
+        description: Price to set
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BudgetRequest'
+              $ref: '#/components/schemas/PriceRequest'
         required: true
       responses:
         '200':
-          description: User added successfully
+          description: Price added successfully
           content:
             application/json:
               schema:
@@ -245,6 +283,102 @@ paths:
           description: Unexpected error
         '500':
           description: Internal error
+
+  /status/update/{budget-id}:
+    put:
+      tags:
+        - status
+      operationId: updateStatus
+      description: Update the status of an existing budget
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: newStatus
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Status Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /chats/addChat/{budget-id}:
+    put:
+      tags:
+        - chats
+      operationId: addChat
+      description: Add chat to an existing budget
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Chat to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Chat added Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /images/upload/{budget-id}:
+    put:
+      tags:
+        - images
+      operationId: addImage
+      description: Add image to an existing budget
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Image to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageRequest'
+      responses:
+        '200':
+          description: Image added Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
 
 components:
   schemas:
@@ -325,15 +459,22 @@ components:
           type: string
         price:
           type: number
+        creationDate:
+          type: string
+          format: date
+          example: "02-12-2023"
+        estimatedDate:
+          type: string
+          format: date
+          example: "02-12-2023"
         comments:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ChatResponse'
         images:
           type: array
           items:
             type: string
-            format: binary
     BudgetRequest:
       type: object
       properties:
@@ -345,10 +486,44 @@ components:
           type: string
         description:
           type: string
-        status:
+        user:
           type: string
         images:
           type: array
           items:
             type: string
-            format: binary
+    ChatResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        senderWorker:
+          type: boolean
+        creationDate:
+          type: string
+          format: date
+          example: "02-12-2023"
+
+    ChatRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        sender:
+          type: string
+
+    ImageRequest:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: string
+
+    PriceRequest:
+      type: object
+      properties:
+        price:
+          type: number
+          format: double
+

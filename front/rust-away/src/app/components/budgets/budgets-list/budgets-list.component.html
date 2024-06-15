@@ -1,0 +1,46 @@
+<div class="container">
+
+    <div class="text-center">
+        <button class="btn btn-primary btn-lg mt-3" [routerLink]="['/new-budget']">Crear presupuesto</button>
+    </div>
+
+@if (users.length == 0) {
+    <div class="alert alert-warning">No hay registros en el sistema!</div>
+    } @else {
+    <table class="table table-hover table-striped mt-3">
+        <thead>
+            <tr class="text-center">
+                <th>Título</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Fecha de solicitud</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (budget of budgets; track $index) {
+            <tr class="text-center" [routerLink]="['/budget-info/', budget.id]">
+                <td > {{budget.title}} </td>
+                <td> {{budget.brand}} </td>
+                <td> {{budget.model}} </td>
+                <td> {{budget.creationDate}} </td>
+                <td>
+                @if(budget.status == "UNTOUCHED"){
+                    <span class="badge badge-pill bg-secondary">{{budget.status}}</span>
+                }
+                @if(budget.status == "REVIEWED"){
+                    <span class="badge badge-pill bg-info">{{budget.status}}</span>
+                }
+                @if(budget.status == "IN_PROGRESS"){
+                    <span class="badge badge-pill bg-warning">{{budget.status}}</span>
+                }
+                @if(budget.status == "FINISHED"){
+                    <span class="badge badge-pill bg-success">{{budget.status}}</span>
+                }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>

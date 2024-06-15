@@ -1,0 +1,116 @@
+.image-group {
+    clear: both;
+}
+.small-input {
+    display: inline-flex !important;
+    width: 49% !important;
+}
+
+
+.image-view {
+    display: inline;
+    width: 10em;
+}
+
+
+img:hover {
+    position: relative;
+    color: #424242; 
+    -webkit-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    -ms-transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+    opacity: 1;
+    transform: scale(3);
+    -ms-transform: scale(3); 
+    -webkit-transform: scale(3);
+    z-index: 99 !important;
+}
+
+img:hover ~ input {
+    z-index: -9999 !important;
+}
+
+.message-group {
+    margin-top: 2em !important;
+}
+
+.messages {
+    position: relative;
+    list-style: none;
+    margin: 2em;
+}
+
+.message {
+    clear: both;
+    overflow: hidden;
+}
+
+.worker-message {
+    background-color: #ffe6cb;
+    margin-left: 2em;
+    margin-top: .5em !important;
+    right: 100%;
+    border-right-color: #ffe6cb;
+    color: #c48843;
+    float: left;
+    text-align: left;
+    padding: 1em;
+    border-radius: 3em;
+}
+
+.client-message {
+    background-color: #c7eafc;
+    margin-right: 2em;
+    margin-top: .5em !important;
+    float: right;
+    left: 100%;
+    border-left-color: #c7eafc;
+    color: #45829b;
+    text-align: right;
+    padding: 1em;
+    border-radius: 3em;
+}
+
+.form-select {
+    padding-top: 0em !important;
+    height: 1em !important;
+    min-height: 2em !important;
+    min-width: 10em;
+    width: 30% !important;
+}
+
+.form-message {
+    border: 1px solid gray;
+    display: inline-block !important;
+    padding: 0 .5rem;
+    flex: 1;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    outline: none;
+    width: 75% !important;
+}
+
+.btn-send {
+    margin-left: .5em !important;
+    margin-top: .5em !important;
+    background-color: #459b8b;
+}
+
+.btn-status {
+    background-color: #45829b;
+    color: white;
+    margin-left: 2em;
+}
+
+.upload-image {
+    margin-top: 3em !important;
+    width: 100%;
+}
+
+
+.btn-upload {
+    background-color: #459b8b;
+    margin-left: 1em !important;
+}

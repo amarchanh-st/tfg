@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Login } from '../../models/login';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { SharingDataService } from '../../services/sharing-data.service';
 import Swal from 'sweetalert2';
@@ -13,13 +13,22 @@ import Swal from 'sweetalert2';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit{
 
   login: Login;
 
   constructor(
-    private sharingData: SharingDataService) {
+    private sharingData: SharingDataService,
+    private loginService: LoginService,
+    private router: Router) {
     this.login = new Login();
+  }
+
+  ngOnInit(): void {
+    // Check if the user is authenticated. If yes, redirects to homepage
+    if(this.loginService.isAuth()) {
+      this.router.navigate(['/home']);
+    }
   }
 
   onSubmit() {

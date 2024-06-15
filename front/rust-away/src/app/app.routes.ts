@@ -50,7 +50,7 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: 'budget-info',
+        path: 'budget-info/:id',
         component: BudgetComponent,
         canActivate: [authGuard]
     },

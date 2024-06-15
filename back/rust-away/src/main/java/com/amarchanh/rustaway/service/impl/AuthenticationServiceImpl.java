@@ -2,9 +2,7 @@ package com.amarchanh.rustaway.service.impl;
 
 import com.amarchanh.rustaway.model.LoginRequest;
 import com.amarchanh.rustaway.model.TokenResponse;
-import com.amarchanh.rustaway.model.UserRequest;
 import com.amarchanh.rustaway.repository.UserRepository;
-import com.amarchanh.rustaway.repository.entity.UserEntity;
 import com.amarchanh.rustaway.service.AuthenticationService;
 import com.amarchanh.rustaway.service.model.Jwt;
 import com.amarchanh.rustaway.service.model.User;
@@ -54,7 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
         // TODO: Cambiar por service
-        var user = userRepository.findAllByUsername(request.getUsername())
+        var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var jwt = jwtService.generateToken(user);
         return TokenResponse.builder().token(jwt).build();

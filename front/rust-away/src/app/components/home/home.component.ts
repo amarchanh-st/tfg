@@ -31,13 +31,9 @@ export class HomeComponent {
 constructor() {}
 
 ngOnInit() {
-  /*  
-  this.photoService.getImages().then((images) => {
-        this.images = images;
-    });
-    */
-   this.images = ["https://i0.wp.com/css-tricks.com/wp-content/uploads/2022/07/angular-url-shortener-featured-image.png?fit=1280%2C720&ssl=1",
-   "https://i0.wp.com/css-tricks.com/wp-content/uploads/2019/12/angular-logo.png?fit=1200%2C600&ssl=1&resize=350%2C200"
+   this.images = ["https://www.telegraph.co.uk/cars/images/2016/10/03/BMT-main_trans_NvBQzQNjv4Bq-MpaW5mhZ3p2x8lezorrwCwlC6iyZV0F0yuJxTR1KzY.jpg?imwidth=680",
+   "https://images.ctfassets.net/uc0w7zwkmx6m/5rNduiC0wvgVROqtXyQQyt/7e0f246e96e60f78a71625dfecf62c1a/GAB_2628.jpg",
+   "https://spicercollectorcars.com/wp-content/uploads/2019/08/A-Good-Car-Restoration-H2.jpg"
    ];
 }
 

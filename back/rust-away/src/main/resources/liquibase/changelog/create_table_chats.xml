@@ -1,0 +1,38 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--Added the entity Car-->
+    <changeSet id="20170503041524-1" author="amarchanh">
+        <createTable tableName="chats">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="message" type="varchar(4000)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="sender_id" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="budget_id" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_at" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="sender_id"
+                                 baseTableName="chats"
+                                 constraintName="fk_chats_users"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="budget_id"
+                                 baseTableName="chats"
+                                 constraintName="fk_chats_budget"
+                                 referencedColumnNames="id"
+                                 referencedTableName="budget"/>
+    </changeSet>
+</databaseChangeLog>
