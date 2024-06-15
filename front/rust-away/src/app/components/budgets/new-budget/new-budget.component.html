@@ -1,60 +1,54 @@
-<div class="container mt-5">
-    <div class="card mx-auto w-75">
-        <div class="card-header">
-            <h5 class="card-title text-center">Nuevo presupuesto</h5>
+
+<div class="col-xl-9 mx-auto m-5"> 
+    <div class="card bg-secondary shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h3 class="mb-0">Nuevo presupuesto</h3>
+          </div>
+          <div class="col-4 text-right">
+            <a class="btn btn-primary btn-lg mt-3 " style="color: white;" type="submit">Guardar</a>
+          </div>
         </div>
-        <div class="card-body mb-5" >
-            <form (ngSubmit)="onSubmit()" class="mx-auto w-75 text-center mb-5">
-                <div class="form-floating mt-3">
-                    <input 
-                    name="title" 
-                    type="text"
-                    class="form-control "
-                    placeholder="Título"
-                    [(ngModel)]="budget.title"
-                    />
-                    <label for="title">Título</label>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-username">Título</label>
+                  <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Título" [(ngModel)]="budget.title"
+                  [ngModelOptions]="{standalone: true}">
                 </div>
-                <div class="form-floating mt-3">
-                    <input 
-                    name="brand" 
-                    type="text"
-                    class="form-control "
-                    placeholder="Marca"
-                    [(ngModel)]="budget.brand"
-                    />
-                    <label for="brand">Marca</label>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-date">Marca</label>
+                  <input type="date" id="input-date" class="form-control form-control-alternative" type="text" placeholder="Marca"
+                  [(ngModel)]="budget.brand" [ngModelOptions]="{standalone: true}">
                 </div>
-                <div class="form-floating mt-3">
-                    <input 
-                    name="model" 
-                    type="text"
-                    class="form-control "
-                    placeholder="Modelo"
-                    [(ngModel)]="budget.model"
-                    />
-                    <label for="model">Modelo</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-first-name">Modelo</label>
+                  <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Modelo" [(ngModel)]="budget.model"
+                  [ngModelOptions]="{standalone: true}" >
                 </div>
-                <div class="form-floating mt-3">
-                    <textarea 
-                    name="description" 
-                    type="textarea"
-                    class="form-control "
-                    placeholder="Descripción"
-                    [(ngModel)]="budget.description"
-                    ></textarea>
-                    <label for="description">Descripción</label>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-last-name">Descripción</label>
+                  <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Descripción"
+                  [(ngModel)]="budget.description" [ngModelOptions]="{standalone: true}">
                 </div>
-                <input type="file" (change)="onFileChange($event)" accept="image/*" multiple />
-       
-                <div>
-                    <button 
-                        class="btn btn-primary btn-lg mt-3 " 
-                        type="submit">
-                        Guardar
-                    </button>
-                </div>
-            </form>
-        </div>
+              </div>
+              <input type="file" (change)="onFileChange($event)" accept="image/*" multiple/>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>

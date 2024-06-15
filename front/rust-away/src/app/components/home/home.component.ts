@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { LoginService } from '../../services/login.service';
+import { HomeScrollComponent } from '../../home-scroll/home-scroll.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MdbCarouselModule],
+  imports: [MdbCarouselModule, HomeScrollComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

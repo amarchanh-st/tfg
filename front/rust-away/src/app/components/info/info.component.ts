@@ -16,6 +16,8 @@ export class InfoComponent {
     longitude: -3.916667 // Replace with actual longitude
   }; // Workshop data property
 
+  car= 'assets/car.png';
+
   constructor() { }
 
   openGoogleMapsDirections(): void {
