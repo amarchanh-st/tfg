@@ -1,0 +1,76 @@
+<div class="container mt-5">
+    <div class="card mx-auto w-75">
+        <div class="card-header">
+            <div class="text-center mb-1">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
+                    <i class="bi bi-person"></i>
+                </div>
+                <h5 class="card-title">Información de la cuenta</h5>
+            </div>
+        </div>
+
+        <div class="card-body " >
+            <form class="mx-auto w-75 text-center mb-5">
+                <div class="form-floating">
+                    <input 
+                    name="username" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Usuario" 
+                    [(ngModel)]="user.username"
+                    disabled/>
+                    <label for="username">Nombre de usuario</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input 
+                    name="name" 
+                    id="name" 
+                    class="form-control "
+                    placeholder="Nombre" 
+                    [(ngModel)]="user.name"
+                    disabled>
+                    <label for="name">Nombre</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input 
+                    name="surname" 
+                    id="surname" 
+                    class="form-control "
+                    placeholder="Apellidos" 
+                    [(ngModel)]="user.surname"
+                    disabled>
+                    <label for="surname">Apellidos</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input 
+                    name="birthDate"
+                    id="birthDate" 
+                    class="form-control "
+                    type="date" 
+                    [(ngModel)]="user.birthDate"
+                    disabled>
+                    <label for="birthDate">Fecha de nacimiento</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input 
+                    name="address" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Dirección" 
+                    disabled
+                    [(ngModel)]="user.address"/>
+                    <label for="address">Dirección</label>
+                </div>               
+                
+                <button 
+                    class="btn btn-primary btn-lg mt-3 " 
+                    type="submit" (click)="editUserInfo()">
+                    Editar cuenta
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

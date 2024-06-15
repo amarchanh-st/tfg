@@ -48,10 +48,20 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorization -> authorization
                         .requestMatchers(HttpMethod.POST, "/user/log-in", "/user/sign-up").permitAll()
-                        .requestMatchers("/v3/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v2/api-docs", "openapi.yaml").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/budget/**").hasAnyRole("CLIENT", "WORKER")
+                        .requestMatchers(HttpMethod.POST, "/budget/**").hasAnyRole("CLIENT", "WORKER")
+                        .requestMatchers(HttpMethod.GET, "/user/**").hasAnyRole("CLIENT", "WORKER")
+                        .requestMatchers(HttpMethod.PUT, "/user/**").hasAnyRole("CLIENT", "WORKER")
+                        .requestMatchers(HttpMethod.PUT, "/status/**").hasAnyRole( "WORKER")
+                        .requestMatchers(HttpMethod.PUT, "/chats/**").hasAnyRole( "CLIENT", "WORKER")
+                        .requestMatchers(HttpMethod.PUT, "/images/**").hasAnyRole( "CLIENT", "WORKER")
+                        .requestMatchers(HttpMethod.PUT, "/budget/**").hasAnyRole( "WORKER")
+                        .requestMatchers("/v3/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**",
+                                "/swagger-resources/**", "/v2/api-docs", "openapi.yaml").permitAll()
                         .anyRequest().authenticated()
                 )
-                .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
        return http.build();
     }

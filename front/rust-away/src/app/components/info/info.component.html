@@ -1,0 +1,56 @@
+  <div class="card mx-auto mt-3 mb-5 w-75 ">
+    <div class="container px-5 mb-5 ">
+      <h1 class="text-center">Contacto</h1>
+      <div class="row gx-5 p-3">
+          <div class=" ">
+            Además de nuestros servicios de restauración, también ofrecemos:
+            <ul>
+              <li>
+                Asesoramiento técnico: Te ayudamos a elegir las mejores opciones para la restauración de tu vehículo, en función de tu presupuesto y necesidades.
+              </li>
+              <li>
+                Valoración de vehículos: Te proporcionamos una valoración justa y precisa de tu vehículo, tanto para fines de compraventa como de seguro.
+              </li>
+              <li>
+                Servicio de recogida y entrega: Recogemos y entregamos tu vehículo en tu domicilio, para tu mayor comodidad.
+              </li>
+            </ul>
+
+En <b>Rust-Away</b> estamos comprometidos con la satisfacción de nuestros clientes. Nos apasiona devolver la vida a los vehículos clásicos y antiguos, y convertirlos en piezas únicas y llenas de historia.
+
+No dudes en contactarnos para solicitar un presupuesto gratuito o para obtener más información sobre nuestros servicios. Estaremos encantados de atenderte y ayudarte a hacer realidad tu sueño de restauración.
+
+¡Visita nuestro taller y descubre cómo podemos darle nueva vida a tu pasión!
+          </div>
+          <div class="col-lg-4">
+              <img class="mx-auto body-image-right">
+            </div>
+    </div>
+    
+
+  </div>
+
+  <div class="container px-5 mb-5">
+    <h2>{{ workshop.name }}</h2>
+    <div class="workshop-info">
+      <p><strong>Dirección:</strong> {{ workshop.address }}</p>
+      <p><strong>Teléfono:</strong> {{ workshop.phone }}</p>
+    </div>
+  
+    <div class="ml-5">
+      <div style="max-width:100%;overflow:hidden;color:red;width:600px;margin-left: auto;margin-right: auto;height:500px;">
+        <div id="canvas-for-googlemap" style="height:100%; width:100%;max-width:100%;">
+          <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=UOC+Universidad+Abierta+de+Cataluña,+Rambla+del+Poblenou,+154-156,+Sant+Martí,+08018+Barcelona,+España&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
+          </iframe>
+        </div>
+        <style>#canvas-for-googlemap img.text-marker{max-width:none!important;background:none!important;}img{max-width:none}</style>
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button class="btn btn-primary" (click)="openGoogleMapsDirections()">Ver ruta</button>
+    </div>
+    <div class="mb-5"></div>
+   </div>
+
+  </div>

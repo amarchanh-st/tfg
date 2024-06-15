@@ -11,6 +11,14 @@ servers:
 tags:
   - name: users
     description: Endpoints which manage users
+  - name: budget
+    description: Endpoints which manage budgets
+  - name: status
+    description: Endpoints which manage status
+  - name: chats
+    description: Endpoints which manage chats
+  - name: images
+    description: Endpoints which manage images
 
 paths:
   /user/sign-up:
@@ -40,6 +48,68 @@ paths:
           description: Unexpected error
         '500':
           description: Internal error
+
+  /user/{username}:
+    get:
+      tags:
+        - users
+      summary: Get user by username
+      description: Get user from the system
+      operationId: getUser
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /user/edit/{username}:
+    put:
+      tags:
+        - users
+      summary: Edit user
+      description: Edit user from the system
+      operationId: editUser
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: User to edit
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEditRequest'
+        required: true
+      responses:
+        '200':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
   /user/log-in:
     post:
       tags:
@@ -70,6 +140,246 @@ paths:
         '500':
           description: Internal error
 
+  /budget/find-all:
+    get:
+      parameters:
+        - in: query
+          name: status
+          description: status of the budgets to return
+          schema:
+            type: string
+            enum: [UNTOUCHED, REVIEWED, IN_PROGRESS, FINISHED ]
+          required: false
+        - in: query
+          name: limit
+          description: maximum number of budgets to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+        - in: query
+          name: skip
+          description: number of budgets to skip for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: order
+          description: order of the returned list by date
+          required: false
+          schema:
+            type: string
+      tags:
+        - budget
+      summary: Find all budgets with criteria
+      description: Find all budgets with criteria
+      operationId: findAllBudgets
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /budget/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      tags:
+        - budget
+      summary: Find a budget by Id
+      description: Find a budget by Id
+      operationId: findById
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /budget/new:
+    post:
+      tags:
+        - budget
+      summary: Add new budget
+      description: Add a new budget to the system
+      operationId: addBudget
+      requestBody:
+        description: User to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+        required: true
+      responses:
+        '200':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /budget/addPrice/{budget-id}:
+    put:
+      tags:
+        - budget
+      operationId: updatePriceBudget
+      description: Update a existing budget with new price
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Price to set
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceRequest'
+        required: true
+      responses:
+        '200':
+          description: Price added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /status/update/{budget-id}:
+    put:
+      tags:
+        - status
+      operationId: updateStatus
+      description: Update the status of an existing budget
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: newStatus
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Status Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /chats/addChat/{budget-id}:
+    put:
+      tags:
+        - chats
+      operationId: addChat
+      description: Add chat to an existing budget
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Chat to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Chat added Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+  /images/upload/{budget-id}:
+    put:
+      tags:
+        - images
+      operationId: addImage
+      description: Add image to an existing budget
+      parameters:
+        - in: path
+          name: budget-id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Image to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageRequest'
+      responses:
+        '200':
+          description: Image added Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetResponse'
+        '400':
+          description: Bad request
+        default:
+          description: Unexpected error
+        '500':
+          description: Internal error
+
+
 components:
   schemas:
     LoginRequest:
@@ -90,6 +400,29 @@ components:
           type: string
         password:
           type: string
+        address:
+          type: string
+        birthDate:
+          type: string
+          format: date
+    UserEditRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+        address:
+          type: string
+        birthDate:
+          type: string
+          format: date
     UserResponse:
       type: object
       properties:
@@ -99,10 +432,98 @@ components:
           type: string
         surname:
           type: string
-        password:
+        address:
           type: string
+        birthDate:
+          type: string
+          format: date
     TokenResponse:
       type: object
       properties:
         token:
           type: string
+    BudgetResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        brand:
+          type: string
+        model:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        price:
+          type: number
+        creationDate:
+          type: string
+          format: date
+          example: "02-12-2023"
+        estimatedDate:
+          type: string
+          format: date
+          example: "02-12-2023"
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatResponse'
+        images:
+          type: array
+          items:
+            type: string
+    BudgetRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        brand:
+          type: string
+        model:
+          type: string
+        description:
+          type: string
+        user:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+    ChatResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        senderWorker:
+          type: boolean
+        creationDate:
+          type: string
+          format: date
+          example: "02-12-2023"
+
+    ChatRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        sender:
+          type: string
+
+    ImageRequest:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: string
+
+    PriceRequest:
+      type: object
+      properties:
+        price:
+          type: number
+          format: double
+

@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <div class="card mx-auto w-75">
+        <div class="card-header">
+            <h5 class="card-title text-center">Nuevo presupuesto</h5>
+        </div>
+        <div class="card-body mb-5" >
+            <form (ngSubmit)="onSubmit()" class="mx-auto w-75 text-center mb-5">
+                <div class="form-floating mt-3">
+                    <input 
+                    name="title" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Título"
+                    [(ngModel)]="budget.title"
+                    />
+                    <label for="title">Título</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input 
+                    name="brand" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Marca"
+                    [(ngModel)]="budget.brand"
+                    />
+                    <label for="brand">Marca</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input 
+                    name="model" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Modelo"
+                    [(ngModel)]="budget.model"
+                    />
+                    <label for="model">Modelo</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <textarea 
+                    name="description" 
+                    type="textarea"
+                    class="form-control "
+                    placeholder="Descripción"
+                    [(ngModel)]="budget.description"
+                    ></textarea>
+                    <label for="description">Descripción</label>
+                </div>
+                <input type="file" (change)="onFileChange($event)" accept="image/*" multiple />
+       
+                <div>
+                    <button 
+                        class="btn btn-primary btn-lg mt-3 " 
+                        type="submit">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

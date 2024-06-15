@@ -1,0 +1,16 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--Added the entity Car-->
+    <changeSet id="20170503041524-1" author="amarchanh">
+        <addColumn tableName="users">
+            <column afterColumn="surname"
+                    name="birth_date"
+                    type="date">
+            </column>
+            <column afterColumn="birth_date"
+                    name="address"
+                    type="varchar(255)">
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

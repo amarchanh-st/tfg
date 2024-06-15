@@ -73,7 +73,7 @@ export class LoginService {
   } 
 
   isAdmin() {
-    return this.loginInfo.role === "ROLE_ADMIN" || false;
+    return this.loginInfo.role === "ROLE_WORKER" || false;
   }
 
   isAuth() {
@@ -82,6 +82,10 @@ export class LoginService {
 
   getRole() {
     return this.loginInfo.role;
+  }
+
+  getUsername() {
+    return this.loginInfo.user.username;
   }
 
   logout() {

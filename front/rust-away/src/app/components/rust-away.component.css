@@ -2,3 +2,9 @@
     margin: 0 auto; /* Added */
     float: none;
 }
+
+.bg-gradient  {
+    background: rgb(13,0,241);
+    background: linear-gradient(90deg, rgba(13,0,241,1) 0%, rgba(30,114,213,1) 35%, rgba(0,212,255,1) 100%) 
+}
+

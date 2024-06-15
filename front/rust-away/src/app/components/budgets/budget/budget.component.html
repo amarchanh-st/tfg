@@ -1,0 +1,171 @@
+<div class="container mt-5">
+    <div class="card mx-auto w-75">
+        <div class="card-header">
+            <h5 class="card-title text-center">Información del presupuesto #{{budget.id}}</h5>
+        </div>
+        <div class="card-body mb-5" >
+            <form class="mx-auto w-75 text-center mb-5">
+                <div class="form-floating ">
+                    Estado: 
+                    @if(budget.status == "UNTOUCHED"){
+                        <span class="badge badge-pill bg-secondary">{{budget.status}}</span>
+                    }
+                    @if(budget.status == "REVIEWED"){
+                        <span class="badge badge-pill bg-info">{{budget.status}}</span>
+                    }
+                    @if(budget.status == "IN_PROGRESS"){
+                        <span class="badge badge-pill bg-warning">{{budget.status}}</span>
+                    }
+                    @if(budget.status == "FINISHED"){
+                        <span class="badge badge-pill bg-success">{{budget.status}}</span>
+                    }
+                    &nbsp;|&nbsp; Fecha estimada: {{budget.estimatedDate}}
+                    @if(worker) {
+                        <br>
+                        <div class="mx-auto">
+                            <select class="mt-3 d-inline-block form-select " #status (change)="onSelected(status)">
+                                @for (status of statusList; track $index) {
+                                    <option>
+                                        {{status.name}}
+                                    </option>
+                                }
+                            </select> 
+                            <button class="btn btn-status" (click)="updateStatus()">Actualizar estado</button>
+                        </div>
+                    }
+                    <br>
+                    
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input 
+                    name="title" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Título"
+                    [(ngModel)]="budget.title"
+                    disabled/>
+                    <label for="title">Título</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <textarea 
+                    name="description" 
+                    id="description" 
+                    type="text"
+                    class="form-control"
+                    placeholder="Descripción"
+                    [(ngModel)]="budget.description"
+                    disabled></textarea>
+                    <label for="description">Descripción</label>
+                </div>
+                    <div class="form-floating small-input float-start w-50 mt-3">
+                        <input 
+                        name="brand" 
+                        type="text"
+                        class="form-control "
+                        placeholder="Marca"
+                        [(ngModel)]="budget.brand"
+                        disabled/>
+                        <label for="brand">Marca</label>
+                    </div>
+                    <div class="form-floating small-input float-end w-50 mt-3">
+                        <input 
+                        name="model" 
+                        type="text"
+                        class="form-control "
+                        placeholder="Modelo"
+                        [(ngModel)]="budget.model"
+                        disabled/>
+                        <label for="model">Modelo</label>
+                    </div>
+              
+                <div class="small-input float-start form-floating w-50 mt-3">
+                    @if(worker) {
+                        <input 
+                    name="price" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Precio"
+                    [(ngModel)]="budget.price"
+                    />
+                    }
+                    @else{
+                        <input 
+                    name="price" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Precio"
+                    [(ngModel)]="budget.price"
+                    disabled/>
+                    }
+                    <label for="price">Precio</label>
+                </div>
+                <div class="small-input float-end form-floating w-50 mt-3">
+                    <input 
+                    name="creationDate" 
+                    type="text"
+                    class="form-control "
+                    placeholder="Modelo"
+                    disabled/>
+                    <label for="creationDate">Fecha de creación</label>
+                </div>
+
+                @if(worker) {
+                    <div>
+                        <button 
+                            class="btn btn-primary btn-lg mt-3 " 
+                            type="submit"
+                            (click)="updatePrice()">
+                            Actualizar Precio
+                        </button>
+                    </div>
+                    }
+
+                <div class="form-floating images mt-5">
+                    <span>Imágenes:</span>
+                    <div class="image-group">
+                        @for (image of budget.images; track $index) {
+                                <img class="image-view" src="{{image}}">
+                        }
+                    </div>
+                    <div class="upload-image">
+                        <input id="image" type="file" (change)="onFileChange($event)" accept="image/*" multiple />
+                        <button class="btn-upload btn btn-secondary" (click)="uploadImage()">Subir foto</button>
+                    </div>
+                </div>
+
+                <div class="message-group  mt-3">
+                    <div class="messages">
+                        @for (chat of budget.comments; track $index) {
+                            <div class="message ">
+                                @if(chat.senderWorker){
+                                    <div class="worker-message">{{chat.message}} </div>
+                                }
+                                @else {
+                                    <div class="client-message">{{chat.message}} </div>
+                                }
+                            </div>
+                        }
+                        <div class="form-floating mt-3">
+                            <textarea 
+                            name="message" 
+                            type="text"
+                            class="form-message form-control w-50 mx-auto"
+                            placeholder="Mensaje"
+                            [(ngModel)]="newMessage"
+                            ></textarea>
+                            <button class="btn-send btn btn-primary mb-5 pb-3 pt-3" (click)="sendMessage()">Enviar
+                                <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+               
+            </form>
+        </div>
+
+    </div>
+</div>
