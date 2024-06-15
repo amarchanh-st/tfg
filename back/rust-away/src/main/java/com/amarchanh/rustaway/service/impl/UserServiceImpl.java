@@ -11,12 +11,11 @@ import com.amarchanh.rustaway.service.model.User;
 import com.amarchanh.rustaway.service.model.UserEdit;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.NotFound;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -29,13 +28,14 @@ public class UserServiceImpl implements UserService {
 
 
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findAllByUsername(username)
+        return username -> userRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     @Override
     public UserEntity save(User entity) {
-        final var user = userRepository.findAllByUsername(entity.getUsername());
+        // Check if user is already in database
+        final var user = userRepository.findByUsername(entity.getUsername());
         if(user.isPresent()) {
             throw new UserAlreadyStoredException("User already stored");
         }
@@ -44,14 +44,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
-        UserEntity user = userRepository.findAllByUsername(username).orElseThrow(NotFoundException::new);
+        Optional<UserEntity> user = userRepository.findByUsername(username);
 
-        return userEntityMapper.toModel(user);
+        if(user.isEmpty()) {
+            throw new NotFoundException("User not found in database");
+        }
+
+        return userEntityMapper.toModel(user.get());
     }
 
     @Override
     public User updateUser(String username, UserEdit user) {
-        UserEntity entity = userRepository.findAllByUsername(username).orElseThrow(NotFoundException::new);
+        UserEntity entity = userRepository.findByUsername(username).orElseThrow(NotFoundException::new);
 
         if(!entity.getPassword().equals(passwordEncoder.encode(user.getOldPassword()))) {
             throw new DataMissmatchException("Incorrect Password");

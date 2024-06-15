@@ -12,7 +12,6 @@ import com.amarchanh.rustaway.service.model.Jwt;
 import com.amarchanh.rustaway.service.model.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +69,10 @@ public class UserController implements UserApi {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    // TODO: Endpoint to avance statuses
+
+    // TODO: Method to add comments
 
     @Override
     public ResponseEntity<UserResponse> editUser(String username, UserEditRequest request) {
