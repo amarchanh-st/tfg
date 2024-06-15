@@ -67,9 +67,7 @@ export class BudgetComponent implements OnInit{
     this.service.findById(this.id).subscribe({
       next: response => {
         this.budget = response;
-        console.log(response)
         this.budget.price = ""+ this.formatPrice(this.budget.price!)
-        console.log(this.budget.price)
       },
       error: error => {
         if (error.status == 500) {
@@ -103,6 +101,7 @@ export class BudgetComponent implements OnInit{
         this.selectedFile = null
         this.imageUrl=null
         this.clearSelectedPhoto()
+        this.budget.price = ""+ this.formatPrice(this.budget.price!)
       },
       error: error => {
         if (error.status == 500) {
@@ -120,6 +119,7 @@ export class BudgetComponent implements OnInit{
       next: response => {
         this.budget = response;
         this.newMessage = ""
+        this.budget.price = ""+ this.formatPrice(this.budget.price!)
       },
       error: error => {
         if (error.status == 500) {
@@ -136,6 +136,7 @@ export class BudgetComponent implements OnInit{
     this.service.updatePrice(this.budget.id, {price:this.budget.price}).subscribe({
       next: response => {
         this.budget = response;
+        this.budget.price = ""+ this.formatPrice(this.budget.price!)
       },
       error: error => {
           Swal.fire('Error al recuperar la información del presupuesto', 'Inténtelo de nuevo más tarde', 'error')
@@ -148,6 +149,7 @@ export class BudgetComponent implements OnInit{
     this.statusService.updateStatus(this.budget.id, this.selectedStatus.literal).subscribe({
       next: response => {
         this.budget = response;
+        this.budget.price = ""+ this.formatPrice(this.budget.price!)
       },
       error: error => {
           Swal.fire('Error al recuperar la información del presupuesto', 'Inténtelo de nuevo más tarde', 'error')

@@ -1,3 +1,8 @@
+.wrapper {
+  overflow-x: hidden !important;
+  margin: 0 auto !important; 
+}
+
 .card, .card-body, .btn-primary {
     margin: 0 auto; /* Added */
     float: none;
@@ -8,3 +13,21 @@
     background: linear-gradient(90deg, rgba(13,0,241,1) 0%, rgba(30,114,213,1) 35%, rgba(0,212,255,1) 100%) 
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+footer.navbar {
+  margin-top: auto;
+}

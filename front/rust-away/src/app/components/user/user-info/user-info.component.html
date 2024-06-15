@@ -1,76 +1,68 @@
-<div class="container mt-5">
-    <div class="card mx-auto w-75">
-        <div class="card-header">
-            <div class="text-center mb-1">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-                    <i class="bi bi-person"></i>
+
+<div class="col-xl-9 mx-auto m-5"> 
+    <div class="card bg-secondary shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h3 class="mb-0">Mi perfil</h3>
+          </div>
+          <div class="col-4 text-right">
+            <a class="btn btn-primary btn-lg mt-3 " style="color: white;" (click)="editUserInfo()">Editar perfil</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form>
+          <h6 class="heading-small text-muted mb-4">Información de usuario</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-username">Nombre de usuario</label>
+                  <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="josejuan98" [(ngModel)]="user.username"
+                  disabled [ngModelOptions]="{standalone: true}">
                 </div>
-                <h5 class="card-title">Información de la cuenta</h5>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-email">Fecha de nacimiento</label>
+                  <input type="email" id="input-email" class="form-control form-control-alternative" type="date"
+                  [(ngModel)]="user.birthDate"
+                  disabled [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
             </div>
-        </div>
-
-        <div class="card-body " >
-            <form class="mx-auto w-75 text-center mb-5">
-                <div class="form-floating">
-                    <input 
-                    name="username" 
-                    type="text"
-                    class="form-control "
-                    placeholder="Usuario" 
-                    [(ngModel)]="user.username"
-                    disabled/>
-                    <label for="username">Nombre de usuario</label>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-first-name">Nombre</label>
+                  <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Jose juan" [(ngModel)]="user.surname"
+                  disabled [ngModelOptions]="{standalone: true}">
                 </div>
-                <div class="form-floating mt-3">
-                    <input 
-                    name="name" 
-                    id="name" 
-                    class="form-control "
-                    placeholder="Nombre" 
-                    [(ngModel)]="user.name"
-                    disabled>
-                    <label for="name">Nombre</label>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-last-name">Apellidos</label>
+                  <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Lopez Gutierrez" disabled
+                  [(ngModel)]="user.address" [ngModelOptions]="{standalone: true}">
                 </div>
-
-                <div class="form-floating mt-3">
-                    <input 
-                    name="surname" 
-                    id="surname" 
-                    class="form-control "
-                    placeholder="Apellidos" 
-                    [(ngModel)]="user.surname"
-                    disabled>
-                    <label for="surname">Apellidos</label>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4">
+          <h6 class="heading-small text-muted mb-4">Información de contacto</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group focused">
+                  <label class="form-control-label" for="input-address">Dirección</label>
+                  <input id="input-address" class="form-control form-control-alternative" placeholder="Avenida de la constitución 9" type="text" disabled
+                  [(ngModel)]="user.address" [ngModelOptions]="{standalone: true}">
                 </div>
-
-                <div class="form-floating mt-3">
-                    <input 
-                    name="birthDate"
-                    id="birthDate" 
-                    class="form-control "
-                    type="date" 
-                    [(ngModel)]="user.birthDate"
-                    disabled>
-                    <label for="birthDate">Fecha de nacimiento</label>
-                </div>
-
-                <div class="form-floating mt-3">
-                    <input 
-                    name="address" 
-                    type="text"
-                    class="form-control "
-                    placeholder="Dirección" 
-                    disabled
-                    [(ngModel)]="user.address"/>
-                    <label for="address">Dirección</label>
-                </div>               
-                
-                <button 
-                    class="btn btn-primary btn-lg mt-3 " 
-                    type="submit" (click)="editUserInfo()">
-                    Editar cuenta
-                </button>
-            </form>
-        </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>

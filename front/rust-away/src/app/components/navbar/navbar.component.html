@@ -1,59 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" [routerLink]="['home']">R&nbsp;u&nbsp;s&nbsp;t&nbsp;&nbsp;A&nbsp;w&nbsp;a&nbsp;y</a>
-      <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" 
-                    [routerLink]="['home']">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" 
-                    [routerLink]="['user-info']">Perfil</a>
-                </li>
-                @if(login.isAuth) {
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" 
-                        [routerLink]="['budgets']">Presupuestos</a>
-                    </li>
-                }
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" 
-                    [routerLink]="['info']">Contacto</a>
-                </li>
-            </ul>
-           
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" href="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAuth">
-                <span class="nav-item nav-link text-primary mx-3">
-                    @if(login.isAuth){
-                        Hola, {{ login.user.username }}
-                        <button
-                        (click)="logOut()"
-                        class="btn btn-outline-danger">Log out</button>
-                        
-                        <div class="container-fluid">
-                            <button data-mdb-button-init class="navbar-toggler" type="button" data-mdb-collapse-init
-                                data-mdb-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <i class="bi bi-person-circle"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="collapse" id="navbarToggleExternalContent">
-                            <div class="bg-body-tertiary shadow-3 p-4">
-                            <button
-                            (click)="logOut()"
-                            class="btn btn-outline-success">Log out</button>
-                            </div>
-                          </div>
-                        
-                    } @else {
-                        <a class="btn btn-outline-primary"
-                        [routerLink]="['/login']">Log in</a>
-                    }
-                </span>
-            </div>
-    </div>
-</nav>
+
+<div class="navbar-area">
+  <div class="container">
+    <nav class="site-navbar">
+      <a [routerLink]="['home']" class="site-logo">RUST AWAY</a>
+      <ul [class.open]="isNavMenuOpen" style="z-index: 999999">
+        <li><a (click)="navLinkClick()" [routerLink]="['home']">Inicio</a></li>
+        @if(isLogged) {
+          <li>
+            <a (click)="navLinkClick()" [routerLink]="['budgets']"
+              >PRESUPUESTOS</a
+            >
+          </li>
+        }
+        <li><a (click)="navLinkClick()" [routerLink]="['info']">contacto</a></li>
+      </ul>
+
+      <span class="">
+        @if(login.isAuth){
+        <app-user-navbar></app-user-navbar>
+        } @else {
+        <a class="btn btn-primary btn-lg p-1" [routerLink]="['/login']">Log in</a>
+        }
+      </span>
+
+      <button
+        class="nav-toggler"
+        [class.toggler-open]="isTogglerOpen"
+        (click)="togglerClick()"
+      >
+        <span></span>
+      </button>
+    </nav>
+  </div>
+</div>

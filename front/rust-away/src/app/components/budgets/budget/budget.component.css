@@ -1,17 +1,23 @@
 .image-group {
     clear: both;
 }
-.small-input {
-    display: inline-flex !important;
-    width: 49% !important;
-}
-
 
 .image-view {
     display: inline;
     width: 10em;
+    margin: 2em;
 }
 
+.messages {
+    position: relative;
+    list-style: none;
+    margin: 2em;
+}
+
+.message {
+    clear: both;
+    overflow: hidden;
+}
 
 img:hover {
     position: relative;
@@ -28,49 +34,30 @@ img:hover {
     z-index: 99 !important;
 }
 
-img:hover ~ input {
-    z-index: -9999 !important;
-}
-
-.message-group {
-    margin-top: 2em !important;
-}
-
-.messages {
-    position: relative;
-    list-style: none;
-    margin: 2em;
-}
-
-.message {
-    clear: both;
-    overflow: hidden;
-}
-
 .worker-message {
     background-color: #ffe6cb;
     margin-left: 2em;
-    margin-top: .5em !important;
+    margin-top: .5em;
     right: 100%;
     border-right-color: #ffe6cb;
     color: #c48843;
     float: left;
     text-align: left;
     padding: 1em;
-    border-radius: 3em;
+    border-radius: 1em;
 }
 
 .client-message {
     background-color: #c7eafc;
     margin-right: 2em;
-    margin-top: .5em !important;
+    margin-top: .5em;
     float: right;
     left: 100%;
     border-left-color: #c7eafc;
     color: #45829b;
     text-align: right;
     padding: 1em;
-    border-radius: 3em;
+    border-radius: 1em;
 }
 
 .form-select {
@@ -79,6 +66,16 @@ img:hover ~ input {
     min-height: 2em !important;
     min-width: 10em;
     width: 30% !important;
+}
+
+.btn-status {
+    background-color: #7F9F80;
+    color: white;
+    margin-left: 2em;
+}
+
+.btn-status:hover {
+    background-color: #4F6F52 !important;
 }
 
 .form-message {
@@ -95,22 +92,38 @@ img:hover ~ input {
 .btn-send {
     margin-left: .5em !important;
     margin-top: .5em !important;
-    background-color: #459b8b;
+    background-color: #7F9F80;
 }
 
-.btn-status {
-    background-color: #45829b;
-    color: white;
-    margin-left: 2em;
+.btn-send:hover {
+    background-color: #4F6F52 !important;
 }
 
-.upload-image {
-    margin-top: 3em !important;
-    width: 100%;
+
+.bg-info {
+    background-color: #51829B !important;
+    padding: 12px;
 }
 
+.bg-warning {
+    background-color: #EF9C66 !important;
+    padding: 12px;
+}
+
+.bg-success {
+    background-color: #4F6F52 !important;
+    padding: 12px;
+}
+
+.bg-secondary {
+    background-color: #686D76 !important;
+    padding: 12px;
+}
 
 .btn-upload {
-    background-color: #459b8b;
-    margin-left: 1em !important;
+    margin-left: 5em;
+}
+
+.btn-primary:hover {
+    background-color: #51829B !important;
 }

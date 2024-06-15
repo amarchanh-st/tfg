@@ -79,7 +79,7 @@
                         <label for="model">Modelo</label>
                     </div>
               
-                <div class="small-input float-start form-floating w-50 mt-3">
+                <div class="form-floating small-input float-start w-50 mt-3">
                     @if(worker) {
                         <input 
                     name="price" 
@@ -100,7 +100,7 @@
                     }
                     <label for="price">Precio</label>
                 </div>
-                <div class="small-input float-end form-floating w-50 mt-3">
+                <div class="form-floating small-input float-end w-50 mt-3">
                     <input 
                     name="creationDate" 
                     type="text"
@@ -130,7 +130,7 @@
                     </div>
                     <div class="upload-image">
                         <input id="image" type="file" (change)="onFileChange($event)" accept="image/*" multiple />
-                        <button class="btn-upload btn btn-secondary" (click)="uploadImage()">Subir foto</button>
+                        <button class="btn-upload btn btn-primary" (click)="uploadImage()">Subir foto</button>
                     </div>
                 </div>
 
